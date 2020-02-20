@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+   int t, n;
+   puts("PERFECTION OUTPUT");
+   while(scanf("%d", &n), n)
+   {
+
+       int raiz = sqrt(n);
+       int sum = 1;
+       for(int i = 2; i <= raiz; i++)
+       {
+           if(n%i == 0)
+           {
+               sum += i;
+               if(i != n/i) sum += n/i;
+           }
+       }
+
+       printf("%5d", n);
+       if(n == 1)
+           printf("  DEFICIENT");
+       else if(sum == n)
+           printf("  PERFECT");
+       else if (sum < n)
+           printf("  DEFICIENT");
+       else
+           printf("  ABUNDANT");
+       puts("");
+   }
+   printf("END OF OUTPUT");puts("");
+
+
+}
