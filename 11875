@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+   int t, n;
+   scanf("%d", &t);
+   for(int j = 1; j <= t; j++)
+   {
+       scanf("%d", &n);
+       int vet[n];
+       for(int i = 0; i < n; i++)
+       {
+           scanf("%d", &vet[i]);
+       }
+       sort(vet, vet+n);
+       printf("Case %d: %d",j, vet[n/2]);puts("");
+   }
+
+
+}
