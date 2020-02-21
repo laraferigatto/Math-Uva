@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+   int n, c, b,  cont = 0;
+   while(scanf("%d%d", &c, &b) != EOF)
+   {
+
+       int sum = c;
+       int bit = 0;
+       int aux = c;
+       while(aux)
+       {
+          sum += aux/b;
+          bit += aux%b;
+          aux = aux/b;
+          if(!aux)
+          {
+              if(bit >= b)aux = bit;
+              bit = 0;
+          }
+       }
+       printf("%d", sum); puts("");
+   }
+}
