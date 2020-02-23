@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define tam 10000000
+bitset<10000010>p;
+int main()
+{
+	//~ freopen("in", "r", stdin);
+	//~ freopen("out", "w", stdout);
+     p.set();
+    p[0] = p[1] = 0;
+    vector<int> primes;
+    for (ll i = 2; i < tam; ++i)
+    {
+        if(p[i])
+        {
+            primes.push_back(i);
+            for (ll j = i*i; j < tam; j+=i)
+            {
+                p[j] = 0;
+            }
+        }
+    }
+    map <int, int> fat;
+    ll a, b, n;
+    int t;    
+    ll aux= 1, ans = 0, end;
+    scanf("%d", &t);
+    while(t--)
+    {
+		ans = 0;
+        scanf("%Ld%Ld", &a, &b);
+        
+        for(ll j = a; j <= b; j++)
+        {
+            n = j;
+            int aux2 = 0; aux = 1;           
+            for (int i = 0; i < primes.size() &&  primes[i]<=n; ++i)
+            {
+                while(n%primes[i]==0)
+                {
+                    aux2++;
+                    n = n/primes[i];
+                }
+                aux *= (aux2+1);
+                aux2 = 0;
+            }
+
+            if(aux > ans)
+            {
+                ans = aux;
+                end = j;
+            }
+        }
+        printf("Between %Ld and %Ld, %Ld has a maximum of %Ld divisors.", a, b, end, ans); puts("");    
+    }
+
+}
+
+
