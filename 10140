@@ -1,0 +1,109 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define tam 1000000
+bitset<10000010>p;
+vector<int> primes;
+bool prime(ll n)
+{
+    bool flag = 1;
+    int raiz = sqrt(n);
+    for (ll i = 0; i < primes.size() && primes[i] <= raiz; i++)
+    {
+        if(n%primes[i] == 0) 
+        {
+			flag = 0;
+			break;
+		}
+    }
+
+    return flag;
+}
+int main()
+{
+    //~ freopen("in", "r", stdin);
+    //~ freopen("out", "w", stdout);
+    p.set();
+    p[0] = p[1] = 0;
+  
+
+    for (ll i = 2; i <= tam; ++i)
+    {
+        if(p[i])
+        {
+            primes.push_back(i);
+            for (ll j = i*i; j <= tam; j+=i)
+            {
+                p[j] = 0;
+            }
+        }
+    }
+    map <int, int> fat;
+    ll begin,a, b,c,d, n, number;  
+    ll aux= 1, ans = 0, end;
+    ll maior, menor;
+    
+    while(scanf("%Ld%Ld", &begin, &end) != EOF)
+    {
+        ans = 0;        
+        number = 0;
+        maior = 0; menor = 123456789;
+        a = b = c= d = 0;
+        for(ll j = begin; j <= end; j++)
+        {
+            if(j < tam)
+            {
+                if(p[j])
+                {
+                    if(number)
+                    {
+                        aux = j - number;
+                        if(aux > maior)
+                        {
+                            a = number;
+                            b = j;
+                            maior = aux;
+                        }
+                        if(aux < menor)
+                        {
+                            c = number;
+                            d =  j;
+                            menor = aux;
+                        }
+                    }
+                    number = j;
+                }
+            }
+            else
+            {
+                if(prime(j))
+                {
+                    if(number)
+                    {
+                        aux = j - number;
+                        if(aux > maior)
+                        {
+                            a = number;
+                            b = j;
+                            maior = aux;
+                        }
+                        if(aux < menor)
+                        {
+                            c = number;
+                            d =  j;
+                            menor = aux;
+                        }
+                    }
+                    number = j;
+                }
+            }
+        }
+        if(a && b && c && b)
+            printf("%Ld,%Ld are closest, %Ld,%Ld are most distant.",  c,d,a,b);
+        else
+            printf("There are no adjacent primes.");
+        puts("");
+    }
+}
+
+
