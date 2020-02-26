@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define tam 1000000
+bitset<10000010>p;
+vector<int> primes;
+ll fun(ll a, ll e, ll mod)
+{
+	assert(e >= 0);
+	ll r = 1;
+	while(e> 0)
+	{
+		if(e%2) r = (r*a)%mod;
+		a = (a * a)%mod;
+		e = e/2;
+	}
+	return r;
+	
+}
+int main()
+{
+   //~ freopen("in", "r", stdin);
+   //~ freopen("out", "w", stdout);
+   ll b, p, m;
+   while(scanf("%lld%lld%lld", &b, &p, &m) != EOF)
+   {
+	   printf("%lld", fun(b,p,m));puts("");
+   }
+}
