@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+bitset<10000010>p;
+vector<int> primes;
+int mp[32767];
+ll fun(ll a, ll e)
+{
+	assert(e >= 0);
+	ll r = 1;
+	while(e> 0)
+	{
+		if(e%2) r = (r*a);
+		a = (a * a);
+		e = e/2;
+	}
+	return r;
+	
+}
+int main()
+{
+	vector<int> primos;
+	for(int i = 2; i <= 32767; i++)
+	{
+		if(!mp[i])
+		{
+			primos.push_back(i);
+			mp[i] = i;
+		}
+		for(int j = 0; j < primos.size() && primos[j] <= mp[i] && i*primos[j] <= 32767; j++)
+		{
+			mp[primos[j]*i] = primos[j];
+		}
+	}
+   freopen("in", "r", stdin);
+   freopen("out", "w", stdout);
+   ll b, p;
+   while(true)
+   {
+	   scanf("%lld", &b);
+	   if(!b) break;
+	   scanf("%lld", &p);
+	   ll num = fun(b,p);
+	   while(true)
+	   {
+		   char c = getchar();
+		   if(c=='\n') break;
+		   scanf("%lld%lld", &b, &p);
+		   num *= fun(b,p);		   
+	   } 
+	   num--;
+	   map<int,int> ans;
+		map<int,int>::iterator it;
+	   while(num != 1)
+	   {	   	
+          ans[mp[num]]++;
+          num = num/mp[num];
+	   } 
+	   int j;
+	   int  tam = ans.size();
+	   it = ans.end(); 
+	   it--;
+	   for(j = 0; j < tam-1; it--, j++)
+		{
+			printf("%d %d ", it->first, it->second);
+			
+		}
+		printf("%d %d", it->first, it->second);
+		puts("");
+   }
+}
