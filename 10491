@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+   long double vaca, carro, abre;   
+   while(scanf("%Lf%Lf%Lf", &vaca, &carro, &abre) != EOF)
+   {
+	   long double totalPortas;
+	   totalPortas = vaca+carro;
+	   long double escolhaV;
+	   escolhaV = vaca/(vaca+carro);
+	   long double escC = carro/(totalPortas);
+	   vaca = vaca - abre;
+	   long double trocaEscVaca = carro/((vaca-1)+carro);
+	   long double trocaEscCarro = (carro-1)/((vaca)+(carro-1));
+	   long double ans =  (trocaEscCarro*escC)+(trocaEscVaca*escolhaV);
+	   printf("%.5Lf", ans); puts("");
+	}
+}
