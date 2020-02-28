@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int 
+#define tam 10000010
+			
+int mp[10000110];
+map <int, int> fat;
+vector<int> primes;
+ll fun(ll aux)
+{
+	int raiz = sqrt(aux);
+	for (ll i = 0; i < primes.size() && primes[i] <= raiz; i++)
+	{				
+		while(aux%primes[i] == 0)
+		{
+			fat[primes[i]]++;
+			aux = aux/primes[i];		
+		}				
+	}
+	return aux;
+}
+int main()
+{
+	//~ freopen("in", "r", stdin);
+	//~ freopen("out", "w", stdout);   
+	for(int i = 2; i <= tam; i++)
+	{
+		if(!mp[i])
+		{
+			primes.push_back(i);
+			mp[i] = i;
+		}
+		for(int j = 0; j < primes.size() && primes[j] <= mp[i] && i*primes[j] <= tam; j++)
+		{
+			mp[primes[j]*i] = primes[j];
+		}	
+	}  
+    ll a;
+    while(scanf("%Ld", &a), a)
+    {
+		ll ans = 1;
+		ll aux;
+		if(a <= tam)
+		{
+			ll aux = a;
+			while(aux != 1)
+			{
+				fat[mp[aux]]++;
+				aux = aux/mp[aux];
+			}
+			
+		}
+		else
+		{
+			aux  = fun(a);
+			if(aux > 1) fat[aux]++;
+		}
+		if(ans >= 1)
+		{
+			for(map<int,int>::iterator it = fat.begin(); it != fat.end(); it++)
+			{
+				if(it->second == 1 && fat.size() == 1)
+				{
+					ans *= (it->first - 1);
+				}
+				else
+					ans *= (pow(it->first, it->second-1)*(it->first-1));
+			}
+		
+		}
+		printf("%Ld", ans);
+		puts("");
+		fat.clear();			
+	}
+}
+      
+
+
+
