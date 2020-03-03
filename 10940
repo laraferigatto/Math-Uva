@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int pd[5000000];
+int fun(int n)
+{
+	//~ cout << n << endl;
+	if(n == 5) return pd[n] = 2;
+	if(pd[n] != -1) return pd[n];
+	int aux = 2 + fun(n-1);
+	//~ cout <<"n: " << n << " " << aux << endl;
+	if(aux > n) pd[n] = 2;
+	else pd[n] = aux ;
+	return pd[n];
+}
+
+int main()
+{	
+	freopen("in", "r", stdin);
+	freopen("out", "w", stdout);
+	int r;
+	queue<int> f;
+	memset(pd, -1, sizeof pd);
+	pd[1] = 1;
+	pd[2] = pd[3] = 2;
+	pd[4] = 4;
+	while(scanf("%d", &r), r )
+	{	
+		cout << fun(r) << endl;;			
+	} 
+	
+}
+      
+
+
+
