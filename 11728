@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define tam 1000
+bitset<1010>p;
+void fun()
+{
+	p.set();
+	p[0]=p[1] = 0;
+	for (ll i = 2; i <= tam; i++)
+	{
+		if(p[i])
+		{
+			for (ll j = i * i; j <= tam; j+=i)
+			{
+				p[j] = 0;
+			}
+		}			
+	}	
+}
+int main()
+{
+	fun();
+	int n, k = 1;
+	while(scanf("%d", &n), n)
+	{
+		printf("Case %d: ", k); k++;
+		if(p[n-1]) printf("%d", n-1);
+		else if(n==1)printf("1");
+		else
+		{
+			int maior = 0;
+			int ans, raiz ;
+			for (int i = 4; i <= n; i++)
+			{
+				if(p[i])
+				{
+					ans = i +1;
+				}
+				else
+				{
+					ans = i+1;
+					raiz = sqrt(i);	
+					for (int j = 2; j <= raiz; j++)
+					{
+						if(i%j == 0)
+						{
+							ans += j;
+							if(j != i/j) 
+							{
+								ans += i/j;
+							}
+						}
+					}
+				}
+				if(ans == n)
+				{
+					if(maior < ans)
+						maior = i;
+				}			
+			}
+			if(!maior) printf("-1");
+			else printf("%d", maior);
+		}
+		puts("");
+	}
+}
